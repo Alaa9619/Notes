@@ -1,18 +1,33 @@
-// const validator=require('validator')
- //const str = getNotes()
-//console.log(str)
-//console.log(str)
 const chalk=require('chalk')
 const yargs =require('yargs')
-const getNotes = require('./notes.js')
+const notes = require('./notes.js')
 //Customize yargs version
 yargs.version('1.1.0')
 //Creat add command
 yargs.command({
     command:'add',
     describe:'this command is to add note',
-    handler: function(){
-        console.log('Note is added')
+    builder:{
+        title:{
+            describe:'Note Title',
+            demandOption: true ,//required (if you don't add a Note Title) you will get an error
+            type: 'string' // to ensure that the type is a string not a bool type 
+            //make further validation to ensure that it is not empty
+        },
+        body:{
+            describe:'Note Body',
+            demandOption:true,
+            type: 'string'
+
+        }
+
+    },
+    handler: function(argv){
+       // console.log('Note is added')
+       //console.log('title'+argv.title)
+       //console.log('body'+argv.body)
+       notes.addNote(argv.title,argv.body)
+
     }
 })
 //Creat remove command
@@ -42,5 +57,5 @@ yargs.command({
     }
 
 })
-//yargs.parse()
-console.log(yargs.argv)
+yargs.parse()
+//console.log(yargs.argv)
