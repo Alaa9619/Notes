@@ -34,8 +34,17 @@ yargs.command({
 yargs.command({
     command:'remove',
     describe:'this command is to remove a note',
-    handler:function(){
-        console.log('Note is removed')
+    builder:{
+        title:{
+            describe:'Note Title',
+            demandOption: true ,//required (if you don't add a Note Title) you will get an error
+            type: 'string' // to ensure that the type is a string not a bool type 
+            //make further validation to ensure that it is not empty
+        }
+    },
+    handler:function(argv){
+        notes.removeNote(argv.title)
+        
     }
 
 })

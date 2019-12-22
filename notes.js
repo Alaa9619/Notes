@@ -1,4 +1,5 @@
 const fs= require('fs') //write defensive code in order to avoid crashing app (use try and catch)
+const chalk =require('chalk')
 const getNotes = function () {
 
     return 'Your Notes ....'
@@ -16,10 +17,10 @@ const addNote= function(title, body){
     
         })
         saveNote(notes)
-        console.log('New unique note is added')
+        console.log(chalk.green.inverse('New unique note is added'))
 
     }else{
-        console.log('Sorry note title is taken')
+        console.log(chalk.red.inverse('Sorry note title is taken'))
     }
 }
 const saveNote= function(notes){
@@ -38,8 +39,22 @@ const loadNote= function(){
     }
   
 }
+const removeNote = function(title){
+    const notes = loadNote()
+    const keept =notes.filter(function(note){ //to avoid title duplication //callback
+        return note.title !== title //filter the array based upon the function taken  
+
+    })
+    if(keept.length < notes.length){
+        console.log(chalk.green.inverse('Note is removed'))
+        saveNote(keept)
+    }else{
+        console.log(chalk.red.inverse('No note found !'))
+    }
+}
 //export the methodes
 module.exports= {
     getNotes:getNotes,
-    addNote:addNote
+    addNote:addNote, 
+    removeNote:removeNote
 }
