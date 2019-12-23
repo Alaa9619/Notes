@@ -1,15 +1,11 @@
 const fs= require('fs') //write defensive code in order to avoid crashing app (use try and catch)
 const chalk =require('chalk')
-const getNotes = () => {
-
-    return 'Your Notes ....'
-}
 const addNote= (title, body) => {
     const notes = loadNote()
-    const duplicateNotes=notes.filter((note) => note.title === title )//to avoid title duplication //callback
+    //const duplicateNotes=notes.filter((note) => note.title === title )//to avoid title duplication //callback
          //filter the array based upon the function taken  
-         
-    if(duplicateNotes.length===0){
+    const duplicateNote = notes.find((note) => note.title === title)
+    if(!duplicateNote){
         notes.push({
             title:title,
             body:body
@@ -50,7 +46,7 @@ const removeNote = (title) =>{
         console.log(chalk.red.inverse('No note found !'))
     }
 }
-const listNotes= () => {
+const listNotes = () => {
     const notes = loadNote()
     console.log(chalk.green.inverse('Your notes are'))
     notes.forEach(note => {
@@ -59,10 +55,22 @@ const listNotes= () => {
     })
 
 }
+const readNote = (title) => {
+    const notes=loadNote()
+    const note = notes.find((note) => note.title === title)
+    if(note){
+        console.log(chalk.green.inverse(note.title + ' ---> '+note.body))
+    
+    }else{
+        console.log(chalk.red.inverse('ERROR there is no note with this title'))
+    }
+
+
+}
 //export the methodes
 module.exports= {
-    getNotes:getNotes,
     addNote:addNote, 
     removeNote:removeNote,
-    listNotes:listNotes
+    listNotes:listNotes,
+    readNote:readNote
 }

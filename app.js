@@ -62,8 +62,16 @@ yargs.command({
 yargs.command({
     command:'read',
     describe:'this command is to read a note',
-    handler () {
-        console.log('Note is readed')
+    builder:{
+        title:{
+            describe:'Note Title',
+            demandOption: true ,//required (if you don't add a Note Title) you will get an error
+            type: 'string' // to ensure that the type is a string not a bool type 
+            //make further validation to ensure that it is not empty
+        }
+    },
+    handler (argv) {
+        notes.readNote(argv.title)
     }
 
 })
