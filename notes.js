@@ -42,7 +42,7 @@ const removeNote = (title) =>{
     const notes = loadNote()
     const keept =notes.filter((note) => note.title !== title) //to avoid title duplication //callback
      //filter the array based upon the function taken  
-        
+
     if(keept.length < notes.length){
         console.log(chalk.green.inverse('Note is removed'))
         saveNote(keept)
@@ -50,9 +50,19 @@ const removeNote = (title) =>{
         console.log(chalk.red.inverse('No note found !'))
     }
 }
+const listNotes= () => {
+    const notes = loadNote()
+    console.log(chalk.green.inverse('Your notes are'))
+    notes.forEach(note => {
+        console.log(note.title)
+        
+    })
+
+}
 //export the methodes
 module.exports= {
     getNotes:getNotes,
     addNote:addNote, 
-    removeNote:removeNote
+    removeNote:removeNote,
+    listNotes:listNotes
 }
