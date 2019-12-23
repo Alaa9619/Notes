@@ -22,7 +22,7 @@ yargs.command({
         }
 
     },
-    handler: function(argv){
+    handler (argv) {
        // console.log('Note is added')
        //console.log('title'+argv.title)
        //console.log('body'+argv.body)
@@ -42,7 +42,7 @@ yargs.command({
             //make further validation to ensure that it is not empty
         }
     },
-    handler:function(argv){
+    handler (argv) {
         notes.removeNote(argv.title)
         
     }
@@ -61,7 +61,7 @@ yargs.command({
 yargs.command({
     command:'read',
     describe:'this command is to read a note',
-    handler:function(){
+    handler () {
         console.log('Note is readed')
     }
 

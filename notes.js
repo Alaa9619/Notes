@@ -1,15 +1,14 @@
 const fs= require('fs') //write defensive code in order to avoid crashing app (use try and catch)
 const chalk =require('chalk')
-const getNotes = function () {
+const getNotes = () => {
 
     return 'Your Notes ....'
 }
-const addNote= function(title, body){
+const addNote= (title, body) => {
     const notes = loadNote()
-    const duplicateNotes=notes.filter(function(note){ //to avoid title duplication //callback
-        return note.title === title //filter the array based upon the function taken  
-
-    })
+    const duplicateNotes=notes.filter((note) => note.title === title )//to avoid title duplication //callback
+         //filter the array based upon the function taken  
+         
     if(duplicateNotes.length===0){
         notes.push({
             title:title,
@@ -23,11 +22,11 @@ const addNote= function(title, body){
         console.log(chalk.red.inverse('Sorry note title is taken'))
     }
 }
-const saveNote= function(notes){
+const saveNote= (notes) => {
     const dataJSON=JSON.stringify(notes)
     fs.writeFileSync('notes.json',dataJSON)
 }
-const loadNote= function(){
+const loadNote= () => {
     try{
         const dataBuffer=fs.readFileSync('notes.json') // if the file doesn't exist it produces an error 
         const dataJson=dataBuffer.toString()
@@ -39,12 +38,11 @@ const loadNote= function(){
     }
   
 }
-const removeNote = function(title){
+const removeNote = (title) =>{
     const notes = loadNote()
-    const keept =notes.filter(function(note){ //to avoid title duplication //callback
-        return note.title !== title //filter the array based upon the function taken  
-
-    })
+    const keept =notes.filter((note) => note.title !== title) //to avoid title duplication //callback
+     //filter the array based upon the function taken  
+        
     if(keept.length < notes.length){
         console.log(chalk.green.inverse('Note is removed'))
         saveNote(keept)
